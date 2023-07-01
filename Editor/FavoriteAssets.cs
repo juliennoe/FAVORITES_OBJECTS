@@ -46,7 +46,7 @@ public class FavoriteAssets : EditorWindow
     {
         EditorGUILayout.LabelField("Recently selected assets", EditorStyles.boldLabel);
 
-        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of assets:", maxObjects);
+        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of assets: ", maxObjects);
         if (newMaxObjects != maxObjects)
         {
             maxObjects = newMaxObjects;
@@ -70,7 +70,7 @@ public class FavoriteAssets : EditorWindow
         EditorGUILayout.EndScrollView();
         
         Event evt = Event.current;
-        Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+        Rect dropArea = GUILayoutUtility.GetRect(0.0f, 100.0f, GUILayout.ExpandWidth(true));
         GUI.Box(dropArea, "Drag & Drop here!");
 
         switch (evt.type)
