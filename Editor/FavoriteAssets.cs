@@ -21,7 +21,7 @@ public class FavoritesObjects : EditorWindow
         };
     }
 
-    [MenuItem("Window/Favorites Objects")]
+    [MenuItem("Window/Favorites Assets")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(FavoritesObjects));
@@ -44,9 +44,9 @@ public class FavoritesObjects : EditorWindow
 
     void OnGUI()
     {
-        EditorGUILayout.LabelField("Recently selected objects", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Recently selected assets", EditorStyles.boldLabel);
 
-        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of objects:", maxObjects);
+        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of assets:", maxObjects);
         if (newMaxObjects != maxObjects)
         {
             maxObjects = newMaxObjects;
