@@ -4,7 +4,7 @@ using UnityEditorInternal;
 using UnityEngine;
 
 [InitializeOnLoad]
-public class FavoritesObjects : EditorWindow
+public class FavoriteAssets : EditorWindow
 {
     List<Object> recentObjects = new List<Object>();
     int maxObjects = 5;
@@ -17,14 +17,14 @@ public class FavoritesObjects : EditorWindow
     {
         EditorApplication.delayCall += () =>
         {
-            GetWindow(typeof(FavoritesObjects));
+            GetWindow(typeof(FavoriteAssets));
         };
     }
 
     [MenuItem("Window/Favorites Assets")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(FavoritesObjects));
+        EditorWindow.GetWindow(typeof(FavoriteAssets));
     }
 
     void OnEnable()
