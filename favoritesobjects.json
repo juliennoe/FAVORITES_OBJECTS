@@ -1,0 +1,18 @@
+{
+  "name": "com.juliennoe.favoriteobjects",
+  "version": "1.0.0",
+  "displayName": "Favorite Objects",
+  "description": "A script that allows you to save favorite objects from your Unity project folder for quicker access.",
+  "unity": "2021.3",
+  "unityRelease": "17f1",
+  "keywords": ["favorites", "objects", "unity", "quicker access"],
+  "author": {
+    "name": "Julien Noe",
+    "email": "your-email@example.com",  // Replace with your actual email address.
+    "url": "http://www.juliennoe.com"
+  },
+  "dependencies": {
+    // Fill here with necessary packages for your script. For example :
+    // "com.unity.someservice": "1.2.3",
+  }
+}
