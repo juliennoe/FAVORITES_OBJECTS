@@ -70,7 +70,10 @@ public class FavoriteAssets : EditorWindow
         EditorGUILayout.EndScrollView();
         
         Event evt = Event.current;
-        Rect dropArea = GUILayoutUtility.GetRect(0.0f, 200.0f, GUILayout.ExpandWidth(true));
+        Rect dropArea = GUILayoutUtility.GetRect(0.0f, 100.0f, GUILayout.ExpandWidth(true));
+
+        GUIStyle centeredStyle = GUI.skin.GetStyle("Box");
+        centeredStyle.alignment = TextAnchor.MiddleCenter;
         GUI.Box(dropArea, "Drag & Drop here!");
 
         switch (evt.type)
