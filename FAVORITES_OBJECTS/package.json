@@ -1,7 +1,7 @@
 {
-  "name": "com.juliennoe.favoriteobjects",
+  "name": "com.juliennoe.favoritesobjects",
   "version": "1.0.0",
-  "displayName": "Favorite Objects",
+  "displayName": "Favorites Objects",
   "description": "A script that allows you to save favorite objects from your Unity project folder for quicker access.",
   "unity": "2021.3",
   "unityRelease": "17f1",
