@@ -13,7 +13,7 @@ public class FavoriteAssets : EditorWindow
     bool isStoringEnabled = false;
     Object itemToRemove = null;
 
-    static FavoritesObjects()
+    static FavoriteAssets()
     {
         EditorApplication.delayCall += () =>
         {
