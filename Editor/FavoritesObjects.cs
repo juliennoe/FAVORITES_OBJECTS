@@ -3,125 +3,134 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
+[InitializeOnLoad]
 public class FavoritesObjects : EditorWindow
 {
-	List<Object> recentObjects = new List<Object>();
-	int maxObjects = 5;
-	ReorderableList reorderableList;
-	Vector2 scrollPos;
-	bool isStoringEnabled = false;
-	Object itemToRemove = null;
+    List<Object> recentObjects = new List<Object>();
+    int maxObjects = 5;
+    ReorderableList reorderableList;
+    Vector2 scrollPos;
+    bool isStoringEnabled = false;
+    Object itemToRemove = null;
 
-	[MenuItem("Window/Favorites Objects")]
-	public static void ShowWindow()
-	{
-		EditorWindow.GetWindow(typeof(FavoritesObjects));
-	}
+    static FavoritesObjects()
+    {
+        EditorApplication.delayCall += () =>
+        {
+            GetWindow(typeof(FavoritesObjects));
+        };
+    }
 
-	void OnEnable()
-	{
-		reorderableList = new ReorderableList(recentObjects, typeof(Object), true, false, false, false);
-		reorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
-		{
-			rect.y += 2;
-			EditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width - 60, EditorGUIUtility.singleLineHeight),
-				recentObjects[index], typeof(Object), true);
-			if (GUI.Button(new Rect(rect.x + rect.width - 60, rect.y, 60, EditorGUIUtility.singleLineHeight), "Remove"))
-			{
-				itemToRemove = recentObjects[index];
-			}
-		};
-	}
+    [MenuItem("Window/Favorites Objects")]
+    public static void ShowWindow()
+    {
+        EditorWindow.GetWindow(typeof(FavoritesObjects));
+    }
 
-	void OnGUI()
-	{
-		EditorGUILayout.LabelField("Recently selected objects", EditorStyles.boldLabel);
+    void OnEnable()
+    {
+        reorderableList = new ReorderableList(recentObjects, typeof(Object), true, false, false, false);
+        reorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+        {
+            rect.y += 2;
+            EditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width - 60, EditorGUIUtility.singleLineHeight),
+                recentObjects[index], typeof(Object), true);
+            if (GUI.Button(new Rect(rect.x + rect.width - 60, rect.y, 60, EditorGUIUtility.singleLineHeight), "Remove"))
+            {
+                itemToRemove = recentObjects[index];
+            }
+        };
+    }
 
-		int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of objects:", maxObjects);
-		if (newMaxObjects != maxObjects)
-		{
-			maxObjects = newMaxObjects;
-			TrimList();
-		}
+    void OnGUI()
+    {
+        EditorGUILayout.LabelField("Recently selected objects", EditorStyles.boldLabel);
 
-		GUILayout.BeginHorizontal();
-		if (GUILayout.Button("Reset"))
-		{
-			recentObjects.Clear();
-		}
+        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number of objects:", maxObjects);
+        if (newMaxObjects != maxObjects)
+        {
+            maxObjects = newMaxObjects;
+            TrimList();
+        }
 
-		if (GUILayout.Button(isStoringEnabled ? "Stop Storing" : "Start Storing"))
-		{
-			isStoringEnabled = !isStoringEnabled;
-		}
-		GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Reset"))
+        {
+            recentObjects.Clear();
+        }
 
-		scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-		reorderableList.DoLayoutList();
-		EditorGUILayout.EndScrollView();
-		
-		Event evt = Event.current;
-		Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
-		GUI.Box(dropArea, "Drag & Drop here!");
+        if (GUILayout.Button(isStoringEnabled ? "Stop Storing" : "Start Storing"))
+        {
+            isStoringEnabled = !isStoringEnabled;
+        }
+        GUILayout.EndHorizontal();
 
-		switch (evt.type)
-		{
-			case EventType.DragUpdated:
-			case EventType.DragPerform:
-				if (!dropArea.Contains(evt.mousePosition))
-					break;
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+        reorderableList.DoLayoutList();
+        EditorGUILayout.EndScrollView();
+        
+        Event evt = Event.current;
+        Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUILayout.ExpandWidth(true));
+        GUI.Box(dropArea, "Drag & Drop here!");
 
-				DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+        switch (evt.type)
+        {
+            case EventType.DragUpdated:
+            case EventType.DragPerform:
+                if (!dropArea.Contains(evt.mousePosition))
+                    break;
 
-				if (evt.type == EventType.DragPerform)
-				{
-					DragAndDrop.AcceptDrag();
-					foreach (Object draggedObject in DragAndDrop.objectReferences)
-					{
-						if (!recentObjects.Contains(draggedObject))
-						{
-							recentObjects.Add(draggedObject);
-						}
-						TrimList();
-					}
-				}
-				break;
-		}
+                DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 
-		if (itemToRemove != null)
-		{
-			recentObjects.Remove(itemToRemove);
-			itemToRemove = null;
-			Repaint();
-		}
-	}
+                if (evt.type == EventType.DragPerform)
+                {
+                    DragAndDrop.AcceptDrag();
+                    foreach (Object draggedObject in DragAndDrop.objectReferences)
+                    {
+                        if (!recentObjects.Contains(draggedObject))
+                        {
+                            recentObjects.Add(draggedObject);
+                        }
+                        TrimList();
+                    }
+                }
+                break;
+        }
 
-	void TrimList()
-	{
-		while (recentObjects.Count > maxObjects)
-		{
-			recentObjects.RemoveAt(0);
-		}
-	}
+        if (itemToRemove != null)
+        {
+            recentObjects.Remove(itemToRemove);
+            itemToRemove = null;
+            Repaint();
+        }
+    }
 
-	void OnSelectionChange()
-	{
-		if (!isStoringEnabled || Selection.activeObject == null)
-		{
-			return;
-		}
+    void TrimList()
+    {
+        while (recentObjects.Count > maxObjects)
+        {
+            recentObjects.RemoveAt(0);
+        }
+    }
 
-		if (recentObjects.Contains(Selection.activeObject))
-		{
-			return;
-		}
+    void OnSelectionChange()
+    {
+        if (!isStoringEnabled || Selection.activeObject == null)
+        {
+            return;
+        }
 
-		if (recentObjects.Count >= maxObjects)
-		{
-			recentObjects.RemoveAt(0);
-		}
+        if (recentObjects.Contains(Selection.activeObject))
+        {
+            return;
+        }
 
-		recentObjects.Add(Selection.activeObject);
-		Repaint();
-	}
+        if (recentObjects.Count >= maxObjects)
+        {
+            recentObjects.RemoveAt(0);
+        }
+
+        recentObjects.Add(Selection.activeObject);
+        Repaint();
+    }
 }
