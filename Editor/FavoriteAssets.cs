@@ -46,7 +46,7 @@ public class FavoriteAssets : EditorWindow
     {
         EditorGUILayout.LabelField("Recently selected or favorite assets", EditorStyles.boldLabel);
 
-        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number assets: ", maxObjects);
+        int newMaxObjects = EditorGUILayout.DelayedIntField("Maximum number assets : ", maxObjects);
         if (newMaxObjects != maxObjects)
         {
             maxObjects = newMaxObjects;
