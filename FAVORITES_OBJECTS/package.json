@@ -8,11 +8,10 @@
   "keywords": ["favorites", "objects", "unity", "quicker access"],
   "author": {
     "name": "Julien Noe",
-    "email": "your-email@example.com",  // Replace with your actual email address.
+    "email": "your-email@example.com",  
     "url": "http://www.juliennoe.com"
   },
   "dependencies": {
-    // Fill here with necessary packages for your script. For example :
-    // "com.unity.someservice": "1.2.3",
+
   }
 }
