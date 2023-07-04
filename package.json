@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "displayName": "Favorite Assets",
   "description": "A script that allows you to save favorite objects from your Unity project folder for quicker access.",
-  "unity": "2021.3",
+  "unity": "2023.1",
   "unityRelease": "0",
   "keywords": ["favorites", "objects", "unity", "quicker access"],
   "author": {
