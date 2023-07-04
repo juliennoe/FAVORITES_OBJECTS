@@ -4,7 +4,7 @@
   "displayName": "Favorite Assets",
   "description": "A script that allows you to save favorite objects from your Unity project folder for quicker access.",
   "unity": "2021.3",
-  "unityRelease": "17f1",
+  "unityRelease": "0",
   "keywords": ["favorites", "objects", "unity", "quicker access"],
   "author": {
     "name": "Julien Noe",
