@@ -12,15 +12,7 @@ public class FavoriteAssets : EditorWindow
     Vector2 scrollPos;
     bool isStoringEnabled = false;
     Object itemToRemove = null;
-
-    static FavoriteAssets()
-    {
-        EditorApplication.delayCall += () =>
-        {
-            GetWindow(typeof(FavoriteAssets));
-        };
-    }
-
+    
     [MenuItem("Window/Favorite Assets")]
     public static void ShowWindow()
     {
